@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context="com.example.mj.parkingsystem.Admin.AdminParkingArea">
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="50dp"
+            android:background="@mipmap/parking_image_background"/>
+
+        <ImageButton
+            android:id="@+id/bt_plote1"
+            android:layout_width="155dp"
+            android:clickable="false"
+            android:contextClickable="false"
+            android:layout_height="90dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="56dp"
+            android:layout_marginRight="56dp"
+            android:layout_marginTop="132dp"
+            android:background="#58f9000c" />
+
+        <ImageButton
+            android:id="@+id/bt_plote2"
+            android:layout_width="155dp"
+            android:layout_height="90dp"
+
+            android:layout_alignLeft="@+id/bt_plote1"
+            android:layout_alignStart="@+id/bt_plote1"
+            android:layout_below="@+id/bt_plote1"
+            android:layout_marginTop="99dp"
+            android:background="#580008f9" />
+
+        <ImageButton
+            android:id="@+id/bt_plote3"
+            android:layout_width="155dp"
+            android:layout_height="90dp"
+
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/bt_plote1"
+            android:layout_marginLeft="55dp"
+            android:layout_marginStart="55dp"
+            android:layout_marginTop="8dp"
+            android:background="#580008f9" />
+
+        <ImageButton
+            android:id="@+id/bt_plote4"
+            android:layout_width="155dp"
+            android:layout_height="90dp"
+
+            android:layout_alignLeft="@+id/bt_plote3"
+            android:layout_alignStart="@+id/bt_plote3"
+            android:layout_below="@+id/bt_plote2"
+            android:background="#580008f9" />
+    </RelativeLayout>
+
+
+
+

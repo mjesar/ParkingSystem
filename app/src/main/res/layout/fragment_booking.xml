@@ -1,0 +1,124 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.mj.parkingsystem.UsersPackage.BookingFragment">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/plote_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="278dp"
+            android:text="@string/hello_blank_fragment" />
+
+        <EditText
+            android:id="@+id/autoTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/plote_no"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="33dp"
+            android:ems="10"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:text=""
+            android:inputType="time" />
+
+        <Button
+            android:id="@+id/btBookArea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/autoTime"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="102dp"
+            android:text="Book Area" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="66dp"
+            android:text="Welcome you can place you Booking area here" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView"
+            android:layout_alignStart="@+id/textView"
+            android:layout_below="@+id/textView"
+            android:layout_marginTop="19dp"
+            android:text="Time you select for booking" />
+
+        <EditText
+            android:id="@+id/etTimeTaken"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView2"
+            android:layout_alignBottom="@+id/textView2"
+            android:layout_alignEnd="@+id/autoTime"
+            android:layout_alignRight="@+id/autoTime"
+            android:ems="10"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:inputType="number"
+            android:text="00:00" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView2"
+            android:layout_alignStart="@+id/textView2"
+            android:layout_below="@+id/etTimeTaken"
+            android:layout_marginTop="10dp"
+            android:text="$1 per hour total costs" />
+
+        <EditText
+            android:id="@+id/etPrice"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:layout_alignBaseline="@+id/textView3"
+            android:layout_alignBottom="@+id/textView3"
+            android:layout_alignLeft="@+id/etTimeTaken"
+            android:layout_alignStart="@+id/etTimeTaken"
+            android:ems="10"
+            android:inputType="number"
+            android:text="$0" />
+        <!--
+                <EditText
+                    android:id="@+id/autoDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/autoTime"
+                    android:layout_alignEnd="@+id/autoTime"
+                    android:layout_alignRight="@+id/autoTime"
+                    android:layout_marginBottom="57dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:ems="10"
+                    android:text=""
+                    android:inputType="date" />-->
+    </RelativeLayout>
+
+</FrameLayout>

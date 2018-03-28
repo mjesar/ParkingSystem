@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.mj.parkingsystem">
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".Auth.Main2Activity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".UsersPackage.MainActivity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Auth.Signin" />
+        <activity android:name=".Auth.SignUp" />
+        <activity
+            android:name=".UserActivity"
+            android:label="@string/title_activity_user" />
+        <activity android:name=".UsersPackage.ParkingArea" />
+        <activity android:name=".UsersPackage.NotificationsFragment" />
+        <activity
+            android:name=".Admin.Adminnav"
+            android:label="@string/title_activity_adminnav" />
+        <activity android:name=".Admin.AdminParkingArea"></activity>
+    </application>
+
+</manifest>

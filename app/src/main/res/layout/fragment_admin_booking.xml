@@ -1,0 +1,165 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.mj.parkingsystem.Admin.AdminBookingFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="88dp"
+            android:layout_marginStart="88dp"
+            android:layout_marginTop="54dp"
+            android:text="From" />
+
+        <EditText
+            android:id="@+id/et_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView4"
+            android:layout_alignBottom="@+id/textView4"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:layout_toEndOf="@+id/textView4"
+            android:layout_toRightOf="@+id/textView4"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et_start_time"
+            android:layout_marginTop="33dp"
+            android:layout_toLeftOf="@+id/et_start_time"
+            android:layout_toStartOf="@+id/et_start_time"
+            android:text="     To     " />
+
+        <EditText
+            android:id="@+id/et_end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView5"
+            android:layout_alignBottom="@+id/textView5"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:layout_alignLeft="@+id/et_start_time"
+            android:layout_alignStart="@+id/et_start_time"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et_end_time"
+            android:layout_marginTop="41dp"
+            android:layout_toLeftOf="@+id/et_start_time"
+            android:layout_toStartOf="@+id/et_start_time"
+            android:text=" Time Taken" />
+
+        <EditText
+            android:id="@+id/et_total_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView7"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:layout_alignBottom="@+id/textView7"
+            android:layout_alignLeft="@+id/et_end_time"
+            android:layout_alignStart="@+id/et_end_time"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/et_price"
+            android:layout_alignBottom="@+id/et_price"
+            android:layout_alignEnd="@+id/textView5"
+            android:layout_alignRight="@+id/textView5"
+            android:text="Price" />
+
+        <EditText
+            android:id="@+id/et_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/et_total_time"
+            android:layout_alignRight="@+id/et_total_time"
+            android:layout_below="@+id/et_total_time"
+            android:layout_marginTop="21dp"
+            android:ems="10"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/plote_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_username"
+            android:layout_alignBottom="@+id/tv_username"
+            android:layout_alignLeft="@+id/et_price"
+            android:layout_alignStart="@+id/et_price"
+            android:text="Plote No" />
+
+        <TextView
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/et_price"
+            android:layout_alignRight="@+id/et_price"
+            android:layout_below="@+id/et_price"
+            android:layout_marginEnd="22dp"
+            android:layout_marginRight="22dp"
+            android:layout_marginTop="46dp"
+            android:text="Name" />
+
+        <Button
+            android:id="@+id/bt_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/et_price"
+            android:layout_alignStart="@+id/et_price"
+            android:layout_below="@+id/tv_username"
+            android:layout_marginTop="45dp"
+            android:text="Ok" />
+
+        <Button
+            android:id="@+id/bt_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/bt_ok"
+            android:layout_alignBottom="@+id/bt_ok"
+            android:layout_alignEnd="@+id/et_price"
+            android:layout_alignRight="@+id/et_price"
+            android:layout_marginEnd="9dp"
+            android:layout_marginRight="9dp"
+            android:text="Cancel" />
+    </RelativeLayout>
+
+</FrameLayout>
