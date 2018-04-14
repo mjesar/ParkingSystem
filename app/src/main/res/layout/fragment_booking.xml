@@ -9,39 +9,41 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/plote_no"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="278dp"
-            android:text="@string/hello_blank_fragment" />
-
         <EditText
-            android:id="@+id/autoTime"
-            android:layout_width="wrap_content"
+            android:id="@+id/etEndTime"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/plote_no"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="33dp"
-            android:ems="10"
+
+            android:layout_alignBaseline="@+id/etStartTime"
+            android:layout_alignBottom="@+id/etStartTime"
+            android:layout_marginLeft="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_toEndOf="@+id/etEndDate"
+            android:layout_toRightOf="@+id/etEndDate"
             android:clickable="false"
             android:cursorVisible="false"
+            android:ems="10"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            android:windowSoftInputMode="stateAlwaysHidden"
+            android:inputType="time"
             android:text=""
-            android:inputType="time" />
+            android:windowSoftInputMode="stateAlwaysHidden" />
 
-        <Button
-            android:id="@+id/btBookArea"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/etEndDate"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/autoTime"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="102dp"
-            android:text="Book Area" />
+            android:layout_below="@+id/To"
+            android:layout_marginTop="9dp"
+            android:layout_toEndOf="@+id/etStartTime"
+            android:layout_toRightOf="@+id/etStartTime"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:ems="10"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:inputType="date"
+            android:text="" />
 
         <TextView
             android:id="@+id/textView"
@@ -52,73 +54,110 @@
             android:layout_marginTop="66dp"
             android:text="Welcome you can place you Booking area here" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView"
-            android:layout_alignStart="@+id/textView"
-            android:layout_below="@+id/textView"
-            android:layout_marginTop="19dp"
-            android:text="Time you select for booking" />
-
         <EditText
             android:id="@+id/etTimeTaken"
             android:layout_width="50dp"
+
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/textView2"
-            android:layout_alignBottom="@+id/textView2"
-            android:layout_alignEnd="@+id/autoTime"
-            android:layout_alignRight="@+id/autoTime"
-            android:ems="10"
-            android:windowSoftInputMode="stateAlwaysHidden"
+            android:layout_above="@+id/etPrice"
+            android:layout_alignLeft="@+id/etPrice"
+            android:layout_alignStart="@+id/etPrice"
             android:clickable="false"
             android:cursorVisible="false"
+            android:ems="10"
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:inputType="number"
-            android:text="00:00" />
+            android:text="00:00"
+            android:windowSoftInputMode="stateAlwaysHidden" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView2"
-            android:layout_alignStart="@+id/textView2"
-            android:layout_below="@+id/etTimeTaken"
-            android:layout_marginTop="10dp"
+
+            android:layout_above="@+id/bt_select_area"
+            android:layout_alignLeft="@+id/etStartTime"
+            android:layout_alignStart="@+id/etStartTime"
+            android:layout_marginBottom="35dp"
             android:text="$1 per hour total costs" />
 
         <EditText
             android:id="@+id/etPrice"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:clickable="false"
-            android:cursorVisible="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
+
+
             android:layout_alignBaseline="@+id/textView3"
             android:layout_alignBottom="@+id/textView3"
-            android:layout_alignLeft="@+id/etTimeTaken"
-            android:layout_alignStart="@+id/etTimeTaken"
+            android:layout_toEndOf="@+id/bt_select_area"
+            android:layout_toRightOf="@+id/bt_select_area"
+            android:clickable="false"
+            android:cursorVisible="false"
             android:ems="10"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:inputType="number"
-            android:text="$0" />
-        <!--
-                <EditText
-                    android:id="@+id/autoDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@+id/autoTime"
-                    android:layout_alignEnd="@+id/autoTime"
-                    android:layout_alignRight="@+id/autoTime"
-                    android:layout_marginBottom="57dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"
-                    android:ems="10"
-                    android:text=""
-                    android:inputType="date" />-->
+            android:text="$0"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <TextView
+            android:id="@+id/To"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/etEndTime"
+            android:layout_alignStart="@+id/etEndTime"
+            android:layout_below="@+id/textView"
+            android:layout_marginLeft="9dp"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="16dp"
+            android:text="To" />
+
+        <EditText
+            android:id="@+id/etStartTime"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/From"
+            android:layout_alignStart="@+id/From"
+            android:layout_below="@+id/etEndDate"
+            android:layout_marginTop="25dp"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:ems="10"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:inputType="time" />
+
+        <TextView
+            android:id="@+id/From"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/To"
+            android:layout_alignBottom="@+id/To"
+            android:layout_alignLeft="@+id/textView"
+            android:layout_alignStart="@+id/textView"
+            android:text="From" />
+
+        <Button
+            android:id="@+id/bt_select_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="95dp"
+            android:text="Plotes" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/etTimeTaken"
+            android:layout_alignBottom="@+id/etTimeTaken"
+            android:layout_alignLeft="@+id/etStartTime"
+            android:layout_alignStart="@+id/etStartTime"
+            android:text="Total Time" />
+
+
     </RelativeLayout>
 
 </FrameLayout>

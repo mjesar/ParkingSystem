@@ -3,11 +3,78 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.mj.parkingsystem.UsersPackage.FeedbackFragment">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvFeedback"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_above="@+id/bt_postfeedback"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
+
+    <EditText
+        android:id="@+id/et_feedback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/bt_postfeedback"
+
+        android:layout_marginBottom="50dp"
+        android:layout_toLeftOf="@+id/bt_postfeedback"
+        android:layout_toStartOf="@+id/bt_postfeedback"
+        android:drawableLeft="@android:drawable/ic_input_add"
+        android:hint="FeedBack"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/bt_postfeedback"
+        android:layout_marginBottom="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:text="Post"
+
+        android:layout_alignParentRight="true" />
+
+
+<!--
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="340sp"
+        android:layout_height="150sp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="214dp"
+        android:background="@drawable/edittext_bg"
+        android:ems="10"
+        android:inputType="textMultiLine" />
+
+    <Button
+        android:id="@+id/btFeedback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="60dp"
+        android:text="Post Feedback" />
+
+    <RatingBar
+        android:id="@+id/ratingBar2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btFeedback"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="27dp" />-->
+</RelativeLayout>
+
 
 </FrameLayout>

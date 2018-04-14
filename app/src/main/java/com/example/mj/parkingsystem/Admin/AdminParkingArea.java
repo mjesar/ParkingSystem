@@ -4,12 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.example.mj.parkingsystem.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,9 +17,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
-import static android.content.ContentValues.TAG;
-import static com.example.mj.parkingsystem.UsersPackage.BookingFragment.getTimeStamp;
 
 public class AdminParkingArea extends Fragment implements View.OnClickListener{
 
@@ -105,7 +100,7 @@ public class AdminParkingArea extends Fragment implements View.OnClickListener{
         Calendar mcurrentTime = Calendar.getInstance();
         int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
         int minute = mcurrentTime.get(Calendar.MINUTE);
-        final String startTime= getTimeStamp(dateformate,hour,minute);
+        /*final String startTime= getTimeStamp(dateformate,hour,minute);
         Log.d(TAG, "onTimeSet: "+startTime+" Start Time");
 
         switch (view.getId()) {
@@ -167,7 +162,7 @@ public class AdminParkingArea extends Fragment implements View.OnClickListener{
 
             default:
                 break;
-        }
+        }*/
     }
 
 }

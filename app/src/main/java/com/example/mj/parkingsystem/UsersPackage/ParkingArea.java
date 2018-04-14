@@ -11,22 +11,18 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.mj.parkingsystem.GMailSender;
 import com.example.mj.parkingsystem.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
+import java.util.ArrayList;
 
 import static android.content.ContentValues.TAG;
-import static com.example.mj.parkingsystem.UsersPackage.BookingFragment.getTimeStamp;
 
 public class ParkingArea extends Fragment implements View.OnClickListener {
 
@@ -36,8 +32,18 @@ public class ParkingArea extends Fragment implements View.OnClickListener {
     ImageButton bt_polte4;
     FirebaseAuth mAuth;
     DatabaseReference mDatabaseReference;
+    Long st;
+    Long ed;
+    Long sdate;
+    Long pTotal;
+    Long dTotal;
 
-
+     ArrayList<Booking> bookingArrayList;
+    String selectedDate;
+    String endTime1;
+    String startTime1;
+    String price;
+    String duration;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -46,7 +52,6 @@ public class ParkingArea extends Fragment implements View.OnClickListener {
         bt_polte1 = (ImageButton)view.findViewById(R.id.bt_plote1);
          bt_polte2 =(ImageButton)view.findViewById(R.id.bt_plote2);
         bt_polte3 =(ImageButton)view.findViewById(R.id.bt_plote3);
-        bt_polte1.setClickable(false);
 
 
         bt_polte4 =(ImageButton)view.findViewById(R.id.bt_plote4);
@@ -54,8 +59,20 @@ public class ParkingArea extends Fragment implements View.OnClickListener {
         mAuth = FirebaseAuth.getInstance();
         final String user_id = mAuth.getCurrentUser().getUid();
 
+        bookingArrayList= new ArrayList<Booking>();
+
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference("Bookings");
 
 
+        Bundle bundle = getArguments();
+        selectedDate = bundle.getString("DateSelected");
+        endTime1 = bundle.getString("EndTime");
+        startTime1 = bundle.getString("StartTime");
+        price= bundle.getString("Price");
+        duration= bundle.getString("Duration");
+        Log.d(TAG, "onCreateView: " + selectedDate+"  "+endTime1+"   "+startTime1);
+        st= Long.valueOf(startTime1);
+        ed = Long.valueOf(endTime1);
 
 
         bt_polte1.setOnClickListener(this);
@@ -63,35 +80,12 @@ public class ParkingArea extends Fragment implements View.OnClickListener {
         bt_polte3.setOnClickListener(this);
         bt_polte4.setOnClickListener(this);
 
-       /* eReminderDate.setOnClickListener(new View.OnClickListener() {
+        checkBookingtime();
 
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                //To show current date in the datepicker
-                Calendar mcurrentDate = Calendar.getInstance();
-                int mYear = mcurrentDate.get(Calendar.YEAR);
-                int mMonth = mcurrentDate.get(Calendar.MONTH);
-                int mDay = mcurrentDate.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog mDatePicker;
-                mDatePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
-                    public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
-                        // TODO Auto-generated method stub
-                    *//*      Your code   to get date and time    *//*
-                        selectedmonth = selectedmonth + 1;
-                        eReminderDate.setText("" + selectedday + "/" + selectedmonth + "/" + selectedyear);
-                    }
-                }, mYear, mMonth, mDay);
-                mDatePicker.setTitle("Select Date");
-                mDatePicker.show();
 
-            }
 
-        });
-
-        */
-     return view;
+        return view;
    }
 
     @Override
@@ -103,270 +97,56 @@ public class ParkingArea extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        final BookingFragment bookingFragment = new BookingFragment();
+        final PrintBooked printBooked= new PrintBooked();
         final FragmentManager fragmentManager = getFragmentManager();
-        final Bundle bundle = new Bundle();
-        Date calender= Calendar.getInstance().getTime();
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference("Bookings");
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-        final String dateformate = simpleDateFormat.format(calender);
-        Calendar mcurrentTime = Calendar.getInstance();
-        int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-        int minute = mcurrentTime.get(Calendar.MINUTE);
-        final String startTime= getTimeStamp(dateformate,hour,minute);
-        Log.d(TAG, "onTimeSet: "+startTime+" Start Time");
-
+        final String user_id = mAuth.getCurrentUser().getUid();
+        Booking booking1;
         switch (view.getId()) {
 
+
             case R.id.bt_plote1:
-                mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        Booking booking = dataSnapshot.child("Plote_1").getValue(Booking.class);
-                        Log.d(TAG, "onDataChange: "+booking.getEndTime()+"  "+dataSnapshot.getValue().toString());
 
 
 
-                        Long endTime = Long.valueOf(booking.getEndTime().trim().toString());
-                        Long sTime = Long.parseLong(startTime.trim().toString());
-                        Log.d(TAG, "onDataChange: "+endTime+" == "+sTime);
-
-
-
-                        // check if this plote is booked
-                        if (sTime<=endTime){
-                            bt_polte1.setClickable(true);
-                            final SimpleDateFormat timeF = new SimpleDateFormat("HH:mm", Locale.getDefault());
-                            String etime = timeF.format(endTime);
-                            String stime = timeF.format(sTime);
-                            Date d1 = null;
-                            Date d2 = null;
-
-
-                            // Get Difference between two times
-                            try {
-                                d1 = timeF.parse(stime);
-                                d2 = timeF.parse(etime);
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-                            //in milliseconds
-                                long diff = d2.getTime() - d1.getTime();
-                                long diffMinutes = diff / (60 * 1000) % 60;
-                                long diffHours = diff / (60 * 60 * 1000) % 24;
-                                Log.d(TAG, "onDataChangsse: "+diffHours+" : "+diffMinutes );
-
-                            //   bt_polte1.setBackgroundColor(Color.parseColor("580008F9"));
-
-                            Toast.makeText(getActivity(), "Already booked for H"+diffHours+" : m"+diffMinutes, Toast.LENGTH_SHORT).show();
-                        }else {
-
-                            bundle.putString("plote_no", "Plote_1");
-                            bookingFragment.setArguments(bundle);
-                            fragmentManager.beginTransaction().
-                                    replace(R.id.frame_layout,bookingFragment,bookingFragment.getTag()).
-                                    commit();
-                            Toast.makeText(getActivity(), "plote 1", Toast.LENGTH_SHORT).show();
-                        }
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                Log.e(TAG, "onDataChange: false");
+                fragmentManager.beginTransaction().
+                        replace(R.id.frame_layout, printBooked, printBooked.getTag()).
+                        commit();
+                booking1 = new Booking(user_id, "Plote_1", startTime1, endTime1, "Active", price, duration, selectedDate);
+                mDatabaseReference.child(user_id).setValue(booking1);
 
 
                 break;
 
             case R.id.bt_plote2:
 
-                mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        Booking booking = dataSnapshot.child("Plote_2").getValue(Booking.class);
-
-
-
-                        Long endTime = Long.valueOf(booking.getEndTime().trim().toString());
-                        Long sTime = Long.parseLong(startTime.trim().toString());
-                        Log.d(TAG, "onDataChange: "+endTime+" == "+sTime);
-
-
-
-                        // check if this plote is booked
-                        if (sTime<=endTime){
-                            bt_polte1.setClickable(true);
-                            final SimpleDateFormat timeF = new SimpleDateFormat("HH:mm", Locale.getDefault());
-                            String etime = timeF.format(endTime);
-                            String stime = timeF.format(sTime);
-                            Date d1 = null;
-                            Date d2 = null;
-
-
-                            // Get Difference between two times
-                            try {
-                                d1 = timeF.parse(stime);
-                                d2 = timeF.parse(etime);
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-                            //in milliseconds
-                            long diff = d2.getTime() - d1.getTime();
-                            long diffMinutes = diff / (60 * 1000) % 60;
-                            long diffHours = diff / (60 * 60 * 1000) % 24;
-                            Log.d(TAG, "onDataChangsse: "+diffHours+" : "+diffMinutes );
-
-                            //   bt_polte1.setBackgroundColor(Color.parseColor("580008F9"));
-
-                            Toast.makeText(getActivity(), "Already booked for H"+diffHours+" : m"+diffMinutes, Toast.LENGTH_SHORT).show();
-                        }else {
-
-                            bundle.putString("plote_no", "Plote_2");
-                            bookingFragment.setArguments(bundle);
                             fragmentManager.beginTransaction().
-                                    replace(R.id.frame_layout,bookingFragment,bookingFragment.getTag()).
+                                    replace(R.id.frame_layout,printBooked,printBooked.getTag()).
                                     commit();
-                            Toast.makeText(getActivity(), "plote 2", Toast.LENGTH_SHORT).show();
-                        }
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
+               booking1= new Booking(user_id, "Plote_2", startTime1, endTime1, "Active", price, duration, selectedDate);
+                mDatabaseReference.child(user_id).setValue(booking1);
                 break;
 
             case R.id.bt_plote3:
 
-                mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        Booking booking = dataSnapshot.child("Plote_3").getValue(Booking.class);
+                fragmentManager.beginTransaction().
+                        replace(R.id.frame_layout,printBooked,printBooked.getTag()).
+                        commit();
+                booking1= new Booking(user_id, "Plote_3", startTime1, endTime1, "Active", price, duration, selectedDate);
+                mDatabaseReference.child(user_id).setValue(booking1);
 
-
-
-                        Long endTime = Long.valueOf(booking.getEndTime().trim().toString());
-                        Long sTime = Long.parseLong(startTime.trim().toString());
-                        Log.d(TAG, "onDataChange: "+endTime+" == "+sTime);
-
-
-
-                        // check if this plote is booked
-                        if (sTime<=endTime){
-                            bt_polte1.setClickable(true);
-                            final SimpleDateFormat timeF = new SimpleDateFormat("HH:mm", Locale.getDefault());
-                            String etime = timeF.format(endTime);
-                            String stime = timeF.format(sTime);
-                            Date d1 = null;
-                            Date d2 = null;
-
-
-                            // Get Difference between two times
-                            try {
-                                d1 = timeF.parse(stime);
-                                d2 = timeF.parse(etime);
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-                            //in milliseconds
-                            long diff = d2.getTime() - d1.getTime();
-                            long diffMinutes = diff / (60 * 1000) % 60;
-                            long diffHours = diff / (60 * 60 * 1000) % 24;
-                            Log.d(TAG, "onDataChangsse: "+diffHours+" : "+diffMinutes );
-
-                            //   bt_polte1.setBackgroundColor(Color.parseColor("580008F9"));
-
-                            Toast.makeText(getActivity(), "Already booked for H"+diffHours+" : m"+diffMinutes, Toast.LENGTH_SHORT).show();
-                        }else {
-
-
-                            bundle.putString("plote_no", "Plote_3");
-                            bookingFragment.setArguments(bundle);
-                            fragmentManager.beginTransaction().
-                                    replace(R.id.frame_layout,bookingFragment,bookingFragment.getTag()).
-                                    commit();
-                            Toast.makeText(getActivity(), "plote 3", Toast.LENGTH_SHORT).show();
-                        }
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
 
                 break;
 
             case R.id.bt_plote4:
-                mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        Booking booking = dataSnapshot.child("Plote_4").getValue(Booking.class);
-                        Log.d(TAG, "onDataChange: "+booking.getEndTime()+"  "+dataSnapshot.getValue().toString());
 
 
-
-                        Long endTime = Long.valueOf(booking.getEndTime().trim().toString());
-                        Long sTime = Long.parseLong(startTime.trim().toString());
-                        Log.d(TAG, "onDataChange: "+endTime+" == "+sTime);
-
-
-
-                        // check if this plote is booked
-                        if (sTime<=endTime){
-                            bt_polte1.setClickable(true);
-                            final SimpleDateFormat timeF = new SimpleDateFormat("HH:mm", Locale.getDefault());
-                            String etime = timeF.format(endTime);
-                            String stime = timeF.format(sTime);
-                            Date d1 = null;
-                            Date d2 = null;
-
-
-                            // Get Difference between two times
-                            try {
-                                d1 = timeF.parse(stime);
-                                d2 = timeF.parse(etime);
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-                            //in milliseconds
-                            long diff = d2.getTime() - d1.getTime();
-                            long diffMinutes = diff / (60 * 1000) % 60;
-                            long diffHours = diff / (60 * 60 * 1000) % 24;
-                            Log.d(TAG, "onDataChangsse: "+diffHours+" : "+diffMinutes );
-
-                            //   bt_polte1.setBackgroundColor(Color.parseColor("580008F9"));
-
-                            Toast.makeText(getActivity(), "Already booked for H"+diffHours+" : m"+diffMinutes, Toast.LENGTH_SHORT).show();
-                        }else {
-
-                            bundle.putString("plote_no", "Plote_4");
-                            bookingFragment.setArguments(bundle);
-                            fragmentManager.beginTransaction().
-                                    replace(R.id.frame_layout,bookingFragment,bookingFragment.getTag()).
-                                    commit();
-                            Toast.makeText(getActivity(), "plote 4", Toast.LENGTH_SHORT).show();
-
-                        }
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                fragmentManager.beginTransaction().
+                        replace(R.id.frame_layout,printBooked,printBooked.getTag()).
+                        commit();
+                booking1= new Booking(user_id, "Plote_4", startTime1, endTime1, "Active", price, duration, selectedDate);
+                mDatabaseReference.child(user_id).setValue(booking1);
 
                 break;
 
@@ -375,5 +155,117 @@ public class ParkingArea extends Fragment implements View.OnClickListener {
         }
     }
 
+    public void sendAutoMail(){
+
+        new Thread(new Runnable() {
+
+
+            @Override
+            public void run() {
+                try {
+
+                    Object pw = "Password";
+                    System.out.println("String: " + pw);
+
+                    pw = "Password".toCharArray();
+                    System.out.println("Array: " + pw);
+
+                    GMailSender sender = new GMailSender("mohammadalijaisar@gmail.com",
+                        "");
+                    sender.sendMail("Hello from JavaMail", "Body from JavaMail",
+                        "sylvain.saurel@gmail.com", "mohammadalijaisar@gmail.com");
+            } catch (Exception e) {
+                    Log.e("SendMail", e.getMessage(), e);
+            }
+        }
+
+    }).start();
+}
+
+
+
+
+        public void checkBookingtime(){
+
+            mDatabaseReference.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                    Log.e(TAG, "onChildAdded: datasnapshot "+dataSnapshot);
+                    Booking booking = dataSnapshot.getValue(Booking.class);
+                    Log.e(TAG, "onChildAdded: booking "+booking );
+                    bookingArrayList.add(booking);
+                    Log.e(TAG, "onChildAdded: array " +bookingArrayList.get(0));
+
+                    if (bookingArrayList.size()!=0){
+
+                        Log.e(TAG, "onChildAdded: "+bookingArrayList.size() );
+                        for (int i = 0; i < bookingArrayList.size(); i++) {
+                            Long sTime = Long.valueOf(bookingArrayList.get(i).getStartTime());
+                            Long eTime = Long.valueOf(bookingArrayList.get(i).getEndTime());
+                            String ploteno = bookingArrayList.get(i).getPlote_no();
+                            Log.e(TAG, "onClick:" + " PloteNo " + ploteno);
+
+                            // check if this plote is book
+                            if ((ploteno.equals( "Plote_1") && st < sTime && ed > eTime || ploteno.equals("Plote_1" )&&st < eTime && ed > eTime)) {
+                                bt_polte1.setClickable(false);
+                                Toast.makeText(getActivity(), "Plote1 ", Toast.LENGTH_SHORT).show();
+                                Log.e(TAG, "onDataChange: true");
+                                bt_polte1.setBackgroundResource(R.mipmap.car);
+                                Log.e(TAG, "onCreateView: " + bookingArrayList.size());
+
+                            } else if (ploteno.equals("Plote_2" )&& st < sTime && ed > eTime || ploteno.equals("Plote_2" ) && st < eTime && ed > eTime) {
+                                bt_polte2.setClickable(false);
+                                Toast.makeText(getActivity(), "Plote 2 ", Toast.LENGTH_SHORT).show();
+                                Log.e(TAG, "onDataChange: true");
+                                bt_polte2.setBackgroundResource(R.mipmap.car);
+                                Log.e(TAG, "onCreateView: " + bookingArrayList.size());
+                            } else if (ploteno.equals( "Plote_3") && st < sTime && ed > eTime || ploteno.equals("Plote_3" ) && st < eTime && ed > eTime) {
+                                bt_polte3.setClickable(false);
+                                Toast.makeText(getActivity(), "Plote 3", Toast.LENGTH_SHORT).show();
+                                Log.e(TAG, "onDataChange: true");
+                                bt_polte3.setBackgroundResource(R.mipmap.car);
+                                Log.e(TAG, "onCreateView: " + bookingArrayList.size());
+                            } else if (ploteno.equals("Plote_4")&& st < sTime && ed > eTime ||ploteno.equals("Plote_4" )&& st < eTime && ed > eTime) {
+                                bt_polte4.setClickable(false);
+                                Toast.makeText(getActivity(), "Plote 4", Toast.LENGTH_SHORT).show();
+                                Log.e(TAG, "onDataChange: true");
+                                bt_polte4.setBackgroundResource(R.mipmap.car);
+                                Log.e(TAG, "onCreateView: " + bookingArrayList.size());
+                            }
+
+
+                        }
+                    }
+                }
+
+
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+
+
+
+
+        }
 
 }

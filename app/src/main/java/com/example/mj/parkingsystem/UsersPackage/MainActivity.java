@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    loadFragment(new ParkingArea());
+                    loadFragment(new BookingFragment());
                     toolbar.setTitle("Parking Area");
                         return true;
                 case R.id.navigation_feedBack:
@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toolbar= getSupportActionBar();
-        toolbar.setTitle("Parking Area");
-        loadFragment(new ParkingArea());
+        toolbar.setTitle("Booking time");
+        loadFragment(new BookingFragment());
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 

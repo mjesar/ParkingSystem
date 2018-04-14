@@ -7,31 +7,14 @@ package com.example.mj.parkingsystem.UsersPackage;
 
 public class Booking {
 
-
-
     String user_id;
     String plote_no;
     String startTime;
     String endTime;
     String status;
     String price;
-
-
-
+    String selectedDate;
     String duration;
-
-
-    public Booking(String user_id, String plote_no, String startTime, String endTime, String status,
-                   String price, String duration) {
-        this.user_id= user_id;
-        this.plote_no= plote_no;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.status=status;
-        this.price=price;
-        this.duration=duration;
-
-    }
 
     public Booking() {
 
@@ -40,12 +23,27 @@ public class Booking {
 
 
 
+    public Booking(String user_id, String plote_no, String startTime, String endTime, String status,
+                   String price, String duration, String selectedDate) {
+        this.user_id= user_id;
+        this.plote_no= plote_no;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.status=status;
+        this.price=price;
+        this.duration=duration;
+        this.selectedDate=selectedDate;
+    }
+
+
+
+
     public String getPlote_no() {
         return plote_no;
     }
 
     public void setPlote_no(String plote_no) {
-
+            this.plote_no= plote_no;
     }
 
     public String getStartTime() {
@@ -53,6 +51,7 @@ public class Booking {
     }
 
     public void setStartTime(String startTime) {
+
         this.startTime = startTime;
     }
 
@@ -95,6 +94,14 @@ public class Booking {
 
     public void setUser_id(String user_id) {
         this.user_id = user_id;
+    }
+
+    public String getSelectedDate() {
+        return selectedDate;
+    }
+
+    public void setSelectedDate(String selectedDate) {
+        this.selectedDate = selectedDate;
     }
 }
 
